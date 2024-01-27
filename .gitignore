@@ -1,1 +1,5 @@
+# local project settings
 .idea/
+
+# environment variables
+.env

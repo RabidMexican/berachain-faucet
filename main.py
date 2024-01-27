@@ -1,15 +1,19 @@
+import os
 import time
 import random
 
+from dotenv import load_dotenv
 from enum import Enum
 from selenium import webdriver
 from selenium.webdriver.firefox.options import Options
 from selenium.webdriver.common.by import By
 
 
+load_dotenv()
+
 URL = 'https://artio.faucet.berachain.com/'
-ADDRESS = ''
-INTERVAL = 300
+ADDRESS = os.getenv('ADDRESS', None)
+INTERVAL = int(os.getenv('INTERVAL', 0))
 
 options = Options()
 options.add_argument("--headless")
@@ -102,7 +106,10 @@ def try_faucet():
 
 if __name__ == '__main__':
     if not ADDRESS:
-        log('Address was not set! Shutting-down!', LogLevel.ERROR)
+        log('ADDRESS was not set! Shutting-down!', LogLevel.ERROR)
+        exit()
+    if not INTERVAL:
+        log('INTERVAL was not set! Shutting-down!', LogLevel.ERROR)
         exit()
     else:
         while True:
