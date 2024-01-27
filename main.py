@@ -25,6 +25,7 @@ class LogLevel(Enum):
     INFO = 0
     WARNING = 1
     ERROR = 2
+    SUCCESS = 4
 
 
 def log(text: str, level: LogLevel = LogLevel.INFO):
@@ -47,7 +48,7 @@ def print_results():
             for warning in warnings:
                 log(warning.text, LogLevel.WARNING)
             return
-        log('!!! SUCCESS !!!', LogLevel.INFO)
+        log('BERA CLAIMED!', LogLevel.SUCCESS)
     except:
         log('Could not find any messages!', LogLevel.ERROR)
 
