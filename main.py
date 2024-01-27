@@ -101,8 +101,13 @@ def try_faucet():
 
 
 if __name__ == '__main__':
-    while True:
-        print('-----------------------------')
-        try_faucet()
-        log(f'waiting {INTERVAL} seconds...')
-        time.sleep(INTERVAL)
+    if not ADDRESS or not len(ADDRESS):
+        log('Address was not set! Shutting-down!', LogLevel.ERROR)
+        exit()
+    else:
+        while True:
+            print('-----------------------------')
+            try_faucet()
+            log(f'waiting {INTERVAL} seconds...')
+            time.sleep(INTERVAL)
+
