@@ -101,7 +101,7 @@ def try_faucet():
 
 
 if __name__ == '__main__':
-    if not ADDRESS or not len(ADDRESS):
+    if not ADDRESS:
         log('Address was not set! Shutting-down!', LogLevel.ERROR)
         exit()
     else:
