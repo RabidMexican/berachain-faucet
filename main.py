@@ -25,7 +25,7 @@ class LogLevel(Enum):
     INFO = 0
     WARNING = 1
     ERROR = 2
-    SUCCESS = 4
+    SUCCESS = 3
 
 
 def log(text: str, level: LogLevel = LogLevel.INFO):
