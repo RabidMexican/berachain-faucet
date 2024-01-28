@@ -15,6 +15,11 @@ URL = 'https://artio.faucet.berachain.com/'
 ADDRESS = os.getenv('ADDRESS', None)
 INTERVAL = int(os.getenv('INTERVAL', 0))
 
+TEXT_AGREE_BUTTON = 'I AGREE'
+TEXT_CAPTCHA_BUTTON = 'Click here to prove you are not a bot'
+TEXT_CLAIM_BUTTON = 'Drip Tokens'
+TEXT_SUCCESS = 'Request Submitted'
+
 options = Options()
 options.add_argument("--headless")
 options.add_argument("--window-size=1920,1080")
@@ -50,9 +55,10 @@ def print_results():
         warnings = driver.find_elements(by=By.XPATH, value='//div[@role="alert"]/*')
         if len(warnings):
             for warning in warnings:
+                if warning.text == TEXT_SUCCESS:
+                    log('BERA CLAIMED!', LogLevel.SUCCESS)
+                    return
                 log(warning.text, LogLevel.WARNING)
-            return
-        log('BERA CLAIMED!', LogLevel.SUCCESS)
     except:
         log('Could not find any messages!', LogLevel.ERROR)
 
@@ -65,7 +71,7 @@ def handle_terms():
 
         log('Terms & conditions tick-box is checked, clicking agree...')
 
-        agree_button = get_button_by_text('I AGREE')
+        agree_button = get_button_by_text(TEXT_AGREE_BUTTON)
         agree_button.click()
         wait()
     except:
@@ -88,12 +94,12 @@ def try_faucet():
         wait()
 
         log('Solving Captcha...')
-        captcha = get_button_by_text('Click here to prove you are not a bot')
+        captcha = get_button_by_text(TEXT_CAPTCHA_BUTTON)
         driver.execute_script("arguments[0].click();", captcha)
         wait()
 
         log('Claiming tokens...')
-        claim_button = get_button_by_text('Drip Tokens')
+        claim_button = get_button_by_text(TEXT_CLAIM_BUTTON)
         claim_button.click()
         wait()
 
